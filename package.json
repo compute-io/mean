@@ -1,6 +1,6 @@
 {
   "name": "compute-mean",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Computes the arithmetic mean over an array of values.",
   "author": {
     "name": "Athan Reines",
