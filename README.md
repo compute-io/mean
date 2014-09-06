@@ -37,7 +37,7 @@ $ node ./examples/index.js
 
 ## Notes
 
-For arrays exceeding memory constraints, you are encouraged to use streams; see [flow-mean](https://github.com/flow-io/mean).
+For arrays exceeding memory constraints, you are encouraged to use streams; see [flow-mean](https://github.com/flow-io/flow-mean).
 
 
 ## Tests
