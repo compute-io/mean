@@ -93,7 +93,7 @@ Alternatively, to read from an example data file, navigate to the top-level modu
 $ awk '{print $1}' ./examples/cli.txt | compute-mean | awk '{print "mean: "$1}'
 ```
 
-For local installations, point to the local installation directory
+For local installations, modify the above commands to point to the local installation directory.
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mean: "$1}'
