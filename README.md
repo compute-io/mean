@@ -79,9 +79,7 @@ Once installed, insert the `compute-mean` command into a standard-in/standard-ou
 $ <stdout> | compute-mean | <stdin>
 ```
 
-Currently, the module assumes that the `stdin` data is newline delimited.
-
-For example,
+Currently, the module assumes that the `stdin` data is newline delimited. For example,
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | compute-mean | awk '{print "mean: "$1}'
@@ -93,7 +91,7 @@ Alternatively, to read from an example data file, navigate to the top-level modu
 $ awk '{print $1}' ./examples/cli.txt | compute-mean | awk '{print "mean: "$1}'
 ```
 
-For local installations, modify the above commands to point to the local installation directory.
+For local installations, modify the above commands to point to the local installation directory; e.g., 
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mean: "$1}'
