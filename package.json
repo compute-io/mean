@@ -43,7 +43,8 @@
   },
   "dependencies": {
     "byline": "^4.1.1",
-    "readable-stream": "^1.0.32"
+    "readable-stream": "^1.0.32",
+    "validate.io-object": "^1.0.0"
   },
   "devDependencies": {
     "chai": "1.x.x",

@@ -73,11 +73,13 @@ The module provides a command-line interface (cli). To use the module as a gener
 $ npm install -g compute-mean
 ```
 
-Once installed, insert the command into a standard-in/standout-out data pipeline. 
+Once installed, insert the `compute-mean` command into a standard-in/standard-out data pipeline. 
 
 ``` bash
 $ <stdout> | compute-mean | <stdin>
 ```
+
+Currently, the module assumes that the `stdin` data is newline delimited.
 
 For example,
 
@@ -91,7 +93,7 @@ Alternatively, to read from an example data file, navigate to the top-level modu
 $ awk '{print $1}' ./examples/cli.txt | compute-mean | awk '{print "mean: "$1}'
 ```
 
-For local installations, point to the local install directory
+For local installations, point to the local installation directory
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mean: "$1}'
