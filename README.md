@@ -2,7 +2,7 @@ Mean
 ====
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes the arithmetic mean over an array of values.
+> Computes the arithmetic mean of a numeric array.
 
 
 ## Installation
@@ -16,6 +16,36 @@ $ npm install compute-mean
 ``` javascript
 var mean = require( 'compute-mean' );
 ```
+
+#### mean( arr[, accessor] )
+
+Computes the arithmetic mean of a numeric `array`.
+
+``` javascript
+var data = [ 2, 4, 5, 3, 8, 2 ];
+
+var mu = mean( data );
+// returns 4
+```
+
+For non-numeric `arrays`, provide an accessor `function` for accessing `array` values
+
+``` javascript
+var data = [
+	{'x':2},
+	{'x':4},
+	{'x':5},
+	{'x':3},
+	{'x':8},
+	{'x':2}
+];
+
+var mu = mean( data, function getValue( d ) {
+	return d.x;
+});
+// returns 4
+```
+
 
 ## Examples
 
@@ -44,7 +74,7 @@ For arrays exceeding memory constraints, you are encouraged to use streams; see 
 
 ### Unit
 
-Unit tests use the [Mocha](http://visionmedia.github.io/mocha) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
+Unit tests use the [Mocha](http://mochajs.org) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
 
 ``` bash
 $ make test
@@ -64,7 +94,7 @@ $ make test-cov
 Istanbul creates a `./reports/coverage` directory. To access an HTML version of the report,
 
 ``` bash
-$ open reports/coverage/lcov-report/index.html
+$ make view-cov
 ```
 
 
