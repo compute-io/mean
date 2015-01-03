@@ -65,6 +65,40 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
+## CLI
+
+The module provides a command-line interface (cli). To use the module as a general utility, install the module globally
+
+``` bash
+$ npm install -g compute-mean
+```
+
+Once installed, insert the command into a standard text-in/text-out data pipeline. 
+
+``` bash
+$ <stdout> | compute-mean | <stdin>
+```
+
+For example,
+
+``` bash
+$ echo $'2\n4\n5\n3\n8\n2' | compute-mean | awk '{print "mean: "$1}'
+ ````
+
+Alternatively, to read from a file, navigate to the top-level application directory and run
+
+``` bash
+$ awk '{print $1}' ./examples/cli.txt | compute-mean | awk '{print "mean: "$1}'
+```
+
+If the module is installed locally,
+
+``` bash
+$ echo $'2\n4\n5\n3\n8\n2' | ./bin/cli.js | awk '{print "mean: "$1}'
+```
+
+
+
 ## Notes
 
 For arrays exceeding memory constraints, you are encouraged to use streams; see [flow-mean](https://github.com/flow-io/flow-mean).
