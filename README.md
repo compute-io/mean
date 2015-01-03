@@ -85,7 +85,7 @@ Currently, the module assumes that the `stdin` data is newline delimited. For ex
 $ echo $'2\n4\n5\n3\n8\n2' | compute-mean | awk '{print "mean: "$1}'
  ````
 
-Alternatively, to read from an example data file, navigate to the top-level module directory and run
+To read from an example data file, navigate to the top-level module directory and run
 
 ``` bash
 $ awk '{print $1}' ./examples/cli.txt | compute-mean | awk '{print "mean: "$1}'
