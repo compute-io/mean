@@ -8,3 +8,4 @@ TODO
 		-	highwatermark
 		-	objectmode
 		-	...
+2. cli tests

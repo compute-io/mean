@@ -47,7 +47,7 @@ var mu = mean( data, function getValue( d ) {
 ```
 
 
-## Examples
+### Examples
 
 ``` javascript
 var data = new Array( 1000 );
@@ -78,6 +78,9 @@ Once installed, insert the `compute-mean` command into a standard-in/standard-ou
 ``` bash
 $ <stdout> | compute-mean | <stdin>
 ```
+
+
+### Examples
 
 Currently, the module assumes that the `stdin` data is newline delimited. For example,
 
