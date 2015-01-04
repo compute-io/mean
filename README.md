@@ -65,7 +65,7 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
-## CLI
+## Command-line Interface
 
 The module provides a command-line interface (cli). To use the module as a general utility, install the module globally
 
