@@ -65,9 +65,9 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
-## Command-line Interface
+## CLI
 
-The module provides a command-line interface (cli). To use the module as a general utility, install the module globally
+The module provides a command-line interface (CLI). To use the module as a general utility, install the module globally
 
 ``` bash
 $ npm install -g compute-mean
