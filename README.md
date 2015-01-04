@@ -82,7 +82,7 @@ $ <stdout> | compute-mean | <stdin>
 
 ### Examples
 
-Currently, the module assumes that the `stdin` data is newline delimited. For example,
+The module assumes that the `stdin` data is newline delimited. For example,
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | compute-mean | awk '{print "mean: "$1}'
