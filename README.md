@@ -65,6 +65,8 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
+
+
 ## CLI
 
 The module provides a command-line interface (CLI). To use the module as a general utility, install the module globally
@@ -79,25 +81,25 @@ Once installed, insert the `compute-mean` command into a standard-in/standard-ou
 $ <stdout> | compute-mean | <stdin>
 ```
 
+Note that the module assumes that the `stdin` data is __newline__ delimited. 
+
 
 ### Examples
-
-The module assumes that the `stdin` data is newline delimited. For example,
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | compute-mean | awk '{print "mean: "$1}'
  ````
 
+For local installations, modify the above command to point to the local installation directory. 
+
+``` bash
+$ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mean: "$1}'
+```
+
 To read from an example data file, navigate to the top-level module directory and run
 
 ``` bash
 $ awk '{print $1}' ./examples/cli.txt | compute-mean | awk '{print "mean: "$1}'
-```
-
-For local installations, modify the above commands to point to the local installation directory; e.g., 
-
-``` bash
-$ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mean: "$1}'
 ```
 
 
