@@ -75,7 +75,7 @@ The module provides a command-line interface (CLI). To use the module as a gener
 $ npm install -g compute-mean
 ```
 
-Once installed, insert the `compute-mean` command into a standard-in/standard-out data pipeline. 
+Once installed, the `compute-mean` command will be available as a [standard stream](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29).
 
 ``` bash
 $ <stdout> | compute-mean | <stdin>
