@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "byline": "^4.1.1",
+    "minimist": "^1.1.0",
     "readable-stream": "^1.0.32",
     "validate.io-object": "^1.0.0"
   },
