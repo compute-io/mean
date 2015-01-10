@@ -40,9 +40,11 @@ var data = [
 	{'x':2}
 ];
 
-var mu = mean( data, function getValue( d ) {
+function getValue( d ) {
 	return d.x;
-});
+}
+
+var mu = mean( data, getValue );
 // returns 4
 ```
 
