@@ -71,11 +71,17 @@ $ node ./examples/index.js
 
 ## CLI
 
-The module provides a command-line interface (CLI). To use the module as a general utility, install the module globally
+
+### Installation
+
+To use the module as a general utility, install the module globally
 
 ``` bash
 $ npm install -g compute-mean
 ```
+
+
+### Usage
 
 Once installed, the `compute-mean` command will be available as a [standard stream](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29).
 
