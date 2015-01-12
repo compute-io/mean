@@ -2,9 +2,8 @@ TODO
 ====
 
 1. cli arguments
-	-	newline, data separator
-	-	help
-	-	file input
-	- 	version
+	-	separator
+		- 	remove `byline`; use streams2 version of split
 2. stream tests
 	-	validation
+	-	stream

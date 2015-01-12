@@ -5,13 +5,13 @@ Mean
 > Computes the arithmetic mean of a numeric array.
 
 
-## Installation
+### Installation
 
 ``` bash
 $ npm install compute-mean
 ```
 
-## Usage
+### Usage
 
 ``` javascript
 var mean = require( 'compute-mean' );
@@ -67,8 +67,12 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
+### Notes
+
+For arrays exceeding memory constraints, you are encouraged to use streams; see [flow-mean](https://github.com/flow-io/flow-mean).
 
 
+---
 ## CLI
 
 
@@ -83,22 +87,43 @@ $ npm install -g compute-mean
 
 ### Usage
 
-Once installed, the `compute-mean` command will be available as a [standard stream](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29).
+``` bash
+Usage: compute-mean [options] [file]
+
+Options:
+
+  -h,   --help                 Print this message.
+  -V,   --version              Print the package version.
+  -enc, --encoding <encoding>  Set the string encoding of chunks. Default: 
+                               null.
+  -na,  --no-allowhalfopen     Close the stream when the writable stream ends.
+                               Default: false.
+  -hwm, --highwatermark        Specify how much data can be buffered into
+                               memory before applying back pressure. Default:
+                               16kb.
+  -nd,  --no-decodestrings     Prevent strings from being converted into
+                               buffers before streaming to destination.
+                               Default: false.
+  -om,  --objectmode           Stream individual objects rather than buffers.
+                               Default: false.
+  -sep, --separator            Specify how data values are delimited. Default:
+                               '\n'.
+```
+
+The `compute-mean` command is available as a [standard stream](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29).
 
 ``` bash
 $ <stdout> | compute-mean | <stdin>
-```
-
-Note that the module assumes that the `stdin` data is __newline__ delimited. 
+``` 
 
 
 ### Examples
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | compute-mean | awk '{print "mean: "$1}'
- ````
+```
 
-For local installations, modify the above command to point to the local installation directory. 
+For local installations, modify the above command to point to the local installation directory; e.g., 
 
 ``` bash
 $ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mean: "$1}'
@@ -107,16 +132,11 @@ $ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mea
 To read from an example data file, navigate to the top-level module directory and run
 
 ``` bash
-$ awk '{print $1}' ./examples/cli.txt | compute-mean | awk '{print "mean: "$1}'
+$ compute-mean ./examples/cli.txt | awk '{print "mean: "$1}'
 ```
 
 
-
-## Notes
-
-For arrays exceeding memory constraints, you are encouraged to use streams; see [flow-mean](https://github.com/flow-io/flow-mean).
-
-
+---
 ## Tests
 
 ### Unit
@@ -144,13 +164,12 @@ Istanbul creates a `./reports/coverage` directory. To access an HTML version of 
 $ make view-cov
 ```
 
-
+---
 ## License
 
 [MIT license](http://opensource.org/licenses/MIT). 
 
 
----
 ## Copyright
 
 Copyright &copy; 2014. Athan Reines.
