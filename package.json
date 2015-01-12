@@ -53,7 +53,9 @@
     "istanbul": "^0.3.0",
     "jshint": "^2.5.10",
     "jshint-stylish": "^1.0.0",
-    "mocha": "1.x.x"
+    "mocha": "1.x.x",
+    "flow-mock-read": "^1.0.0",
+    "flow-mock-write": "^1.0.0"
   },
   "licenses": [
     {
