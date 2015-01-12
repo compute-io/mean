@@ -96,12 +96,12 @@ Options:
   -V,   --version              Print the package version.
   -enc, --encoding <encoding>  Set the string encoding of chunks. Default: 
                                null.
-  -na,  --no-allowhalfopen     Close the stream when the writable stream ends.
-                               Default: false.
   -hwm, --highwatermark        Specify how much data can be buffered into
                                memory before applying back pressure. Default:
                                16kb.
-  -nd,  --no-decodestrings     Prevent strings from being converted into
+  -nho, --no-halfopen          Close the stream when the writable stream ends.
+                               Default: false.
+  -nds, --no-decodestrings     Prevent strings from being converted into
                                buffers before streaming to destination.
                                Default: false.
   -om,  --objectmode           Stream individual objects rather than buffers.

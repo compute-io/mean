@@ -29,7 +29,7 @@ opts = {
 		'help',
 		'version',
 		'no-decodestrings',
-		'no-allowhalfopen',
+		'no-halfopen',
 		'objectmode'
 	],
 	'alias': {
@@ -43,10 +43,10 @@ opts = {
 			'enc'
 		],
 		'no-decodestrings': [
-			'nd'
+			'nds'
 		],
-		'no-allowhalfopen': [
-			'na'
+		'no-halfopen': [
+			'nho'
 		],
 		'highwatermark': [
 			'hwm'
@@ -94,7 +94,7 @@ if ( args.hasOwnProperty( 'encoding' ) ) {
 	opts.encoding = args.encoding;
 }
 // allowHalfOpen: (default: true)
-if ( args[ 'no-allowhalfopen' ] ) {
+if ( args[ 'no-halfopen' ] ) {
 	opts.allowHalfOpen = false;
 }
 // highWaterMark: (default: 16kb)
