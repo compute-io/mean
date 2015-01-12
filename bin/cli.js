@@ -23,7 +23,7 @@ var opts,
 opts = {
 	'string': [
 		'encoding',
-		'separator'
+		'delimiter'
 	],
 	'boolean': [
 		'help',
@@ -54,8 +54,8 @@ opts = {
 		'objectmode': [
 			'om'
 		],
-		'separator': [
-			'sep'
+		'delimiter': [
+			'd'
 		]
 	}
 };
@@ -110,13 +110,15 @@ if ( args[ 'objectmode' ] ) {
 	opts.objectMode = true;
 }
 
-// separator: (default: '\n' )
-var dStream;
-if ( args.hasOwnProperty( 'separator' ) ) {
-	// TODO: create a split stream
-} else {
-	dStream = new byline.LineStream(); // TODO: replace
+// delimiter: (default: '\n' )
+var delimiter = '\n',
+	dStream;
+
+if ( args.hasOwnProperty( 'delimiter' ) ) {
+	delimiter = args.delimiter;
 }
+// TODO: replace with streams2 split stream
+dStream = new byline.LineStream();
 
 // File: (default: stdin)
 var iStream;

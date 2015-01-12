@@ -106,7 +106,7 @@ Options:
                                Default: false.
   -om,  --objectmode           Stream individual objects rather than buffers.
                                Default: false.
-  -sep, --separator            Specify how data values are delimited. Default:
+  -d,   --delimiter            Specify how data values are delimited. Default:
                                '\n'.
 ```
 
