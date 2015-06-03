@@ -52,8 +52,26 @@ describe( 'stream', function tests() {
 		assert.instanceOf( stream( opts ), Transform );
 	});
 
-	xit( 'should compute the arithmetic mean of streamed data values', function test( done ) {
+	it( 'should compute the arithmetic mean of streamed data values', function test( done ) {
+		var data = [ 2, 4, 5, 3, 8, 2 ],
+			expected = 4,
+			s;
 
+		s = stream({
+			'objectMode': true
+		});
+
+		mockRead( s, onData );
+		mockWrite( data, s );
+
+		function onData( error, actual ) {
+			if ( error ) {
+				assert.notOk( true );
+				return;
+			}
+			assert.strictEqual( actual[ 0 ],expected );
+			done();
+		}
 	});
 
 });
