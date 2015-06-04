@@ -110,11 +110,7 @@ mu = mean( mat, {
 	'dtype': 'uint8'
 });
 /*
-	[ 10
-	  11
-	  12
-	  13
-	  14 ]
+	[ 10, 11, 12, 13, 14 ]
 */
 
 var dtype = mu.dtype;
