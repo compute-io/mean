@@ -4,6 +4,10 @@ Mean
 
 > Computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean).
 
+<div class="equation" align="center" data-raw-text="" data-equation="eq:arithmetic_mean">
+	<img src="" alt="Equation for the arithmetic mean.">
+</div>
+
 
 ### Installation
 
