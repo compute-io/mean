@@ -1,7 +1,7 @@
 {
   "name": "compute-mean",
   "version": "1.0.1",
-  "description": "Computes the arithmetic mean over an array of values.",
+  "description": "Computes the arithmetic mean.",
   "author": {
     "name": "Athan Reines",
     "email": "kgryte@gmail.com"
@@ -18,9 +18,6 @@
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --dir ./reports/coveralls/coverage --report lcovonly -- -R spec && cat ./reports/coveralls/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./reports/coveralls"
   },
   "main": "./lib",
-  "bin": {
-    "compute-mean": "./bin/cli.js"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/compute-io/mean.git"
@@ -36,31 +33,32 @@
     "mean",
     "average",
     "avg",
-    "arithmetic"
+    "arithmetic",
+    "array",
+    "matrix",
+    "accessor",
+    "central tendency"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/mean/issues"
   },
   "dependencies": {
-    "byline": "^4.1.1",
-    "minimist": "^1.1.0",
-    "readable-stream": "^1.0.32",
-    "validate.io-object": "^1.0.0"
+    "compute-array-constructors": "^1.0.0",
+    "compute-matrix": "compute-io/matrix",
+    "validate.io-array-like": "^1.0.0",
+    "validate.io-function": "^1.0.2",
+    "validate.io-matrix-like": "^1.0.0",
+    "validate.io-object": "^1.0.4",
+    "validate.io-positive-integer": "^1.0.0",
+    "validate.io-string-primitive": "^1.0.0"
   },
   "devDependencies": {
-    "chai": "1.x.x",
+    "chai": "2.x.x",
     "coveralls": "^2.11.1",
     "istanbul": "^0.3.0",
-    "jshint": "^2.5.10",
+    "jshint": "^2.x.x",
     "jshint-stylish": "^1.0.0",
-    "mocha": "1.x.x",
-    "flow-mock-read": "^1.0.0",
-    "flow-mock-write": "^1.0.0"
+    "mocha": "2.x.x"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
-  ]
+  "license": "MIT"
 }
