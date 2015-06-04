@@ -2,7 +2,7 @@ Mean
 ====
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes the arithmetic mean.
+> Computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean).
 
 
 ### Installation
@@ -19,12 +19,17 @@ var mean = require( 'compute-mean' );
 
 #### mean( x[, opts] )
 
-Computes the arithmetic mean.
+Computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean). `x` may be either an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or [`matrix`](https://github.com/dstructs/matrix).
 
 ``` javascript
-var data = [ 2, 4, 5, 3, 8, 2 ];
+var data, mu;
 
-var mu = mean( data );
+data = [ 2, 4, 5, 3, 8, 2 ];
+mu = mean( data );
+// returns 4
+
+data = new Int8Array( data );
+mu = mean( data );
 // returns 4
 ```
 
@@ -48,18 +53,128 @@ var mu = mean( data, getValue );
 // returns 4
 ```
 
+If provided a [`matrix`](https://github.com/dstructs/matrix), the function accepts the following `options`:
+
+*	__dim__: dimension along with to compute the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean). Default: `2` (along the columns).
+*	__dtype__: output [`matrix`](https://github.com/dstructs/matrix) data type (`int8|uint8|uint8_clamped|int16|uint16`, `int32|uint32|float32|float64`). Default: `float64`.
+
+By default, the function computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) along the columns (`dim=2`).
+
+``` javascript
+var matrix = require( 'dstructs-matrix' ),
+	data,
+	mat,
+	mu,
+	i;
+
+data = new Int8Array( 25 );
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = i;
+}
+mat = matrix( data, [5,5], 'int8' );
+/*
+	[  0  1  2  3  4
+	   5  6  7  8  9
+	  10 11 12 13 14
+	  15 16 17 18 19
+	  20 21 22 23 24 ]
+*/
+
+mu = mean( mat );
+/*
+	[ 2, 7, 12, 17, 22 ]
+*/
+```
+
+To compute the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) along the rows, set the `dim` option to `1`.
+
+``` javascript
+mu = mean( mat, {
+	'dim': 1
+});
+/*
+	[ 10
+	  11
+	  12
+	  13
+	  14 ]
+*/
+```
+
+By default, the output [`matrix`](https://github.com/dstructs/matrix) data type is `float64`. To specify a different out data type, set the `dtype` option.
+
+``` javascript
+mu = mean( mat, {
+	'dim': 1,
+	'dtype': 'uint8'
+});
+/*
+	[ 10
+	  11
+	  12
+	  13
+	  14 ]
+*/
+
+var dtype = mu.dtype;
+// returns 'uint8'
+```
+
+
 
 ### Examples
 
 ``` javascript
-var mean = require( 'compute-mean' );
+var matrix = require( 'dstructs-matrix' ),
+	mean = require( 'compute-mean' );
 
-var data = new Array( 1000 );
-for ( var i = 0; i < data.length; i++ ) {
+var data,
+	mat,
+	mu,
+	i;
+
+// Plain arrays...
+data = new Array( 1000 );
+for ( i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.random() * 100;
 }
+mu = mean( data );
 
-console.log( mean( data ) );
+// Object arrays (accessors)...
+function getValue( d ) {
+	return d.x;
+}
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = {
+		'x': data[ i ]
+	};
+}
+mu = mean( data, {
+	'accessor': getValue
+});
+
+// Typed arrays...
+data = new Int32Array( 1000 );
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = Math.random() * 100;
+}
+mu = mean( data );
+
+// Matrices (along rows)...
+mat = matrix( data, [100,10], 'int32' );
+mu = mean( mat, {
+	'dim': 1
+});
+
+// Matrices (along columns)...
+mu = mean( mat, {
+	'dim': 2
+});
+
+// Matrices (custom output data type)...
+mu = mean( mat, {
+	'dtype': 'uint8'
+});
 ```
 
 To run the example code from the top-level application directory,
@@ -67,9 +182,6 @@ To run the example code from the top-level application directory,
 ``` bash
 $ node ./examples/index.js
 ```
-
-
-
 
 
 ---
@@ -99,6 +211,7 @@ Istanbul creates a `./reports/coverage` directory. To access an HTML version of 
 ``` bash
 $ make view-cov
 ```
+
 
 ---
 ## License
