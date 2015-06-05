@@ -259,7 +259,7 @@ $ make view-cov
 
 ## Copyright
 
-Copyright &copy; 2014-2015. The Compute.io Authors.
+Copyright &copy; 2014-2015. The [Compute.io](https://github.com/compute-io) Authors.
 
 
 
