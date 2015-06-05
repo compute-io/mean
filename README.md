@@ -49,7 +49,7 @@ var data = [
 	{'x':2}
 ];
 
-function getValue( d ) {
+function getValue( d, i ) {
 	return d.x;
 }
 
