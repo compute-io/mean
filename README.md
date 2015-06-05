@@ -105,7 +105,7 @@ mu = mean( mat, {
 */
 ```
 
-By default, the output [`matrix`](https://github.com/dstructs/matrix) data type is `float64`. To specify a different out data type, set the `dtype` option.
+By default, the output [`matrix`](https://github.com/dstructs/matrix) data type is `float64`. To specify a different output data type, set the `dtype` option.
 
 ``` javascript
 mu = mean( mat, {
@@ -118,6 +118,41 @@ mu = mean( mat, {
 
 var dtype = mu.dtype;
 // returns 'uint8'
+```
+
+If provided a [`matrix`](https://github.com/dstructs/matrix) having either dimension equal to `1`, the function treats the [`matrix`](https://github.com/dstructs/matrix) as a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) and returns a `numeric` value.
+
+``` javascript
+data = [ 2, 4, 5, 3, 8, 2 ];
+
+// Row vector:
+mat = matrix( new Int8Array( data ), [1,6], 'int8' );
+mu = mean( mat );
+// returns 4
+
+// Column vector:
+mat = matrix( new Int8Array( data ), [6,1], 'int8' );
+mu = mean( mat );
+// returns 4
+```
+
+If provided an empty [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or [`matrix`](https://github.com/dstructs/matrix), the function returns `null`.
+
+``` javascript
+mu = mean( [] );
+// returns null
+
+mu = mean( new Int8Array( [] ) );
+// returns null
+
+mu = mean( matrix( [0,0] ) );
+// returns null
+
+mu = mean( matrix( [0,10] ) );
+// returns null
+
+mu = mean( matrix( [10,0] ) );
+// returns null
 ```
 
 
