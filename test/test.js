@@ -125,4 +125,6 @@ describe( 'compute-mean', function tests() {
 		}
 	});
 
+	it( 'should compute the arithmetic mean along a matrix dimension' );
+
 });
