@@ -4,9 +4,13 @@ Mean
 
 > Computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean).
 
+The [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) is defined by
+
 <div class="equation" align="center" data-raw-text="\mu = \frac{1}{N} \sum_{i=0}^{N-1} x_i" data-equation="eq:arithmetic_mean">
 	<img src="https://cdn.rawgit.com/compute-io/mean/c98aa32b6fea5b040092dbf950cba79eb25e25b8/docs/img/eqn.svg" alt="Equation for the arithmetic mean.">
 </div>
+
+where `x_0, x_1,...x_{N-1}` are individual data values and `N` is the total number of values in the data set.
 
 
 ### Installation
