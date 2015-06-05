@@ -58,7 +58,7 @@ function getValue( d, i ) {
 	return d.x;
 }
 
-var mu = mean( data, getValue );
+var mu = mean( data, {'accessor': getValue} );
 // returns 4
 ```
 
