@@ -1,6 +1,6 @@
 'use strict';
 
-var matrix = require( 'compute-matrix' ),
+var matrix = require( 'dstructs-matrix' ),
 	mean = require( './../lib' );
 
 var data,
