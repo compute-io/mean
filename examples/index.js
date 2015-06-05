@@ -42,7 +42,7 @@ for ( i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.random() * 100;
 }
 mu = mean( data );
-console.log( mu );
+console.log( 'Typed arrays: %d\n', mu );
 
 
 // ----
