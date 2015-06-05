@@ -6,6 +6,9 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
+	// Matrix data structure:
+	matrix = require( 'dstructs-matrix' ),
+
 	// Module to be tested:
 	mean = require( './../lib' );
 
@@ -24,9 +27,9 @@ describe( 'compute-mean', function tests() {
 		expect( mean ).to.be.a( 'function' );
 	});
 
-	it( 'should throw an error if provided a non-array', function test() {
+	it( 'should throw an error if the first argument is neither array-like or matrix-like', function test() {
 		var values = [
-			'5',
+			// '5', // valid as is array-like (length)
 			5,
 			true,
 			undefined,
@@ -46,7 +49,7 @@ describe( 'compute-mean', function tests() {
 		}
 	});
 
-	it( 'should throw an error if provided an accessor which is not a function', function test() {
+	it( 'should throw an error if provided a dimension which is greater than 2 when provided a matrix', function test() {
 		var values = [
 			'5',
 			5,
@@ -55,15 +58,36 @@ describe( 'compute-mean', function tests() {
 			null,
 			NaN,
 			[],
-			{}
+			{},
+			function(){}
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			expect( badValue( values[i] ) ).to.throw( TypeError );
+			expect( badValue( values[i] ) ).to.throw( Error );
 		}
 		function badValue( value ) {
 			return function() {
-				mean( [1,2,3], value );
+				mean( matrix( [2,2] ), {
+					'dim': value
+				});
+			};
+		}
+	});
+
+	it( 'should throw an error if provided an unrecognized/unsupported data type option', function test() {
+		var values = [
+			'beep',
+			'boop'
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( Error );
+		}
+		function badValue( value ) {
+			return function() {
+				mean( matrix( [2,2] ), {
+					'dtype': value
+				});
 			};
 		}
 	});
@@ -90,11 +114,15 @@ describe( 'compute-mean', function tests() {
 		];
 
 		expected = 4;
-		actual = mean( data, function getValue( d ) {
-			return d.x;
+		actual = mean( data, {
+			'accessor': getValue
 		});
 
 		assert.strictEqual( actual, expected );
+
+		function getValue( d ) {
+			return d.x;
+		}
 	});
 
 });
