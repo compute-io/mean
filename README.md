@@ -60,7 +60,7 @@ var mu = mean( data, getValue );
 If provided a [`matrix`](https://github.com/dstructs/matrix), the function accepts the following `options`:
 
 *	__dim__: dimension along which to compute the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean). Default: `2` (along the columns).
-*	__dtype__: output [`matrix`](https://github.com/dstructs/matrix) data type (`int8|uint8|uint8_clamped|int16|uint16int32|uint32|float32|float64`). Default: `float64`.
+*	__dtype__: output [`matrix`](https://github.com/dstructs/matrix) data type. Default: `float64`.
 
 By default, the function computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) along the columns (`dim=2`).
 
