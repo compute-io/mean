@@ -2,7 +2,16 @@ Mean
 ====
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes the arithmetic mean of a numeric array.
+> Computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean).
+
+The [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) is defined by
+
+<div class="equation" align="center" data-raw-text="\mu = \frac{1}{N} \sum_{i=0}^{N-1} x_i" data-equation="eq:arithmetic_mean">
+	<img src="https://cdn.rawgit.com/compute-io/mean/c98aa32b6fea5b040092dbf950cba79eb25e25b8/docs/img/eqn.svg" alt="Equation for the arithmetic mean.">
+	<br>
+</div>
+
+where `x_0, x_1,...,x_{N-1}` are individual data values and `N` is the total number of values in the data set.
 
 
 ### Installation
@@ -17,18 +26,23 @@ $ npm install compute-mean
 var mean = require( 'compute-mean' );
 ```
 
-#### mean( arr[, accessor] )
+#### mean( x[, opts] )
 
-Computes the arithmetic mean of a numeric `array`.
+Computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean). `x` may be either an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or [`matrix`](https://github.com/dstructs/matrix).
 
 ``` javascript
-var data = [ 2, 4, 5, 3, 8, 2 ];
+var data, mu;
 
-var mu = mean( data );
+data = [ 2, 4, 5, 3, 8, 2 ];
+mu = mean( data );
+// returns 4
+
+data = new Int8Array( data );
+mu = mean( data );
 // returns 4
 ```
 
-For non-numeric `arrays`, provide an accessor `function` for accessing `array` values
+For non-numeric `arrays`, provide an accessor `function` for accessing `array` values.
 
 ``` javascript
 var data = [
@@ -40,100 +54,171 @@ var data = [
 	{'x':2}
 ];
 
-function getValue( d ) {
+function getValue( d, i ) {
 	return d.x;
 }
 
-var mu = mean( data, getValue );
+var mu = mean( data, {'accessor': getValue} );
 // returns 4
 ```
+
+If provided a [`matrix`](https://github.com/dstructs/matrix), the function accepts the following `options`:
+
+*	__dim__: dimension along which to compute the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean). Default: `2` (along the columns).
+*	__dtype__: output [`matrix`](https://github.com/dstructs/matrix) data type. Default: `float64`.
+
+By default, the function computes the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) along the columns (`dim=2`).
+
+``` javascript
+var matrix = require( 'dstructs-matrix' ),
+	data,
+	mat,
+	mu,
+	i;
+
+data = new Int8Array( 25 );
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = i;
+}
+mat = matrix( data, [5,5], 'int8' );
+/*
+	[  0  1  2  3  4
+	   5  6  7  8  9
+	  10 11 12 13 14
+	  15 16 17 18 19
+	  20 21 22 23 24 ]
+*/
+
+mu = mean( mat );
+/*
+	[  2
+	   7
+	  12
+	  17
+	  22 ]
+*/
+```
+
+To compute the [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) along the rows, set the `dim` option to `1`.
+
+``` javascript
+mu = mean( mat, {
+	'dim': 1
+});
+/*
+	[ 10, 11, 12, 13, 14 ]
+*/
+```
+
+By default, the output [`matrix`](https://github.com/dstructs/matrix) data type is `float64`. To specify a different output data type, set the `dtype` option.
+
+``` javascript
+mu = mean( mat, {
+	'dim': 1,
+	'dtype': 'uint8'
+});
+/*
+	[ 10, 11, 12, 13, 14 ]
+*/
+
+var dtype = mu.dtype;
+// returns 'uint8'
+```
+
+If provided a [`matrix`](https://github.com/dstructs/matrix) having either dimension equal to `1`, the function treats the [`matrix`](https://github.com/dstructs/matrix) as a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) and returns a `numeric` value.
+
+``` javascript
+data = [ 2, 4, 5, 3, 8, 2 ];
+
+// Row vector:
+mat = matrix( new Int8Array( data ), [1,6], 'int8' );
+mu = mean( mat );
+// returns 4
+
+// Column vector:
+mat = matrix( new Int8Array( data ), [6,1], 'int8' );
+mu = mean( mat );
+// returns 4
+```
+
+If provided an empty [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or [`matrix`](https://github.com/dstructs/matrix), the function returns `null`.
+
+``` javascript
+mu = mean( [] );
+// returns null
+
+mu = mean( new Int8Array( [] ) );
+// returns null
+
+mu = mean( matrix( [0,0] ) );
+// returns null
+
+mu = mean( matrix( [0,10] ) );
+// returns null
+
+mu = mean( matrix( [10,0] ) );
+// returns null
+```
+
 
 
 ### Examples
 
 ``` javascript
-var mean = require( 'compute-mean' );
+var matrix = require( 'dstructs-matrix' ),
+	mean = require( 'compute-mean' );
 
-var data = new Array( 1000 );
-for ( var i = 0; i < data.length; i++ ) {
+var data,
+	mat,
+	mu,
+	i;
+
+// Plain arrays...
+data = new Array( 1000 );
+for ( i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.random() * 100;
 }
+mu = mean( data );
 
-console.log( mean( data ) );
+// Object arrays (accessors)...
+function getValue( d ) {
+	return d.x;
+}
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = { 'x': data[ i ] };
+}
+mu = mean( data, {
+	'accessor': getValue
+});
+
+// Typed arrays...
+data = new Int32Array( 1000 );
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = Math.random() * 100;
+}
+mu = mean( data );
+
+// Matrices (along rows)...
+mat = matrix( data, [100,10], 'int32' );
+mu = mean( mat, {
+	'dim': 1
+});
+
+// Matrices (along columns)...
+mu = mean( mat, {
+	'dim': 2
+});
+
+// Matrices (custom output data type)...
+mu = mean( mat, {
+	'dtype': 'uint8'
+});
 ```
 
 To run the example code from the top-level application directory,
 
 ``` bash
 $ node ./examples/index.js
-```
-
-### Notes
-
-For arrays exceeding memory constraints, you are encouraged to use streams; see [flow-mean](https://github.com/flow-io/flow-mean).
-
-
----
-## CLI
-
-
-### Installation
-
-To use the module as a general utility, install the module globally
-
-``` bash
-$ npm install -g compute-mean
-```
-
-
-### Usage
-
-``` bash
-Usage: compute-mean [options] [file]
-
-Options:
-
-  -h,   --help                 Print this message.
-  -V,   --version              Print the package version.
-  -enc, --encoding <encoding>  Set the string encoding of chunks. Default: 
-                               null.
-  -hwm, --highwatermark        Specify how much data can be buffered into
-                               memory before applying back pressure. Default:
-                               16kb.
-  -nho, --no-halfopen          Close the stream when the writable stream ends.
-                               Default: false.
-  -nds, --no-decodestrings     Prevent strings from being converted into
-                               buffers before streaming to destination.
-                               Default: false.
-  -om,  --objectmode           Stream individual objects rather than buffers.
-                               Default: false.
-  -d,   --delimiter            Specify how data values are delimited. Default:
-                               '\n'.
-```
-
-The `compute-mean` command is available as a [standard stream](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29).
-
-``` bash
-$ <stdout> | compute-mean | <stdin>
-``` 
-
-
-### Examples
-
-``` bash
-$ echo $'2\n4\n5\n3\n8\n2' | compute-mean | awk '{print "mean: "$1}'
-```
-
-For local installations, modify the above command to point to the local installation directory; e.g., 
-
-``` bash
-$ echo $'2\n4\n5\n3\n8\n2' | ./node_modules/.bin/compute-mean | awk '{print "mean: "$1}'
-```
-
-To read from an example data file, navigate to the top-level module directory and run
-
-``` bash
-$ compute-mean ./examples/cli.txt | awk '{print "mean: "$1}'
 ```
 
 
@@ -165,6 +250,7 @@ Istanbul creates a `./reports/coverage` directory. To access an HTML version of 
 $ make view-cov
 ```
 
+
 ---
 ## License
 
@@ -173,7 +259,7 @@ $ make view-cov
 
 ## Copyright
 
-Copyright &copy; 2014. Athan Reines.
+Copyright &copy; 2014-2015. The [Compute.io](https://github.com/compute-io) Authors.
 
 
 

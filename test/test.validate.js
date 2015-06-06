@@ -24,156 +24,102 @@ describe( 'validate', function tests() {
 		expect( validate ).to.be.a( 'function' );
 	});
 
-	it( 'should return an error if provided options is not an object', function test() {
-		var values, err;
-
-		values = [
-			5,
+	it( 'should return an error if provided an options argument which is not an object', function test() {
+		var values = [
 			'5',
+			5,
 			true,
-			NaN,
-			null,
 			undefined,
-			[],
-			function(){}
+			null,
+			NaN,
+			function(){},
+			[]
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			err = validate( values[i] );
-			assert.instanceOf( err, TypeError );
+			assert.isTrue( validate( {}, values[ i ] ) instanceof TypeError );
 		}
 	});
 
-	it( 'should return an error if allowHalfOpen option is not a boolean', function test() {
+	it( 'should return an error if provided an accessor which is not a function', function test() {
 		var values, err;
 
 		values = [
-			5,
-			{},
 			'5',
-			null,
-			NaN,
-			undefined,
-			[],
-			function(){}
-		];
-
-		for ( var i = 0; i < values.length; i++ ) {
-			err = validate({
-				'allowHalfOpen': values[i]
-			});
-			assert.instanceOf( err, TypeError );
-		}
-	});
-
-	it( 'should return an error if decodeStrings option is not a boolean', function test() {
-		var values, err;
-
-		values = [
 			5,
-			{},
-			'5',
-			null,
-			NaN,
-			undefined,
-			[],
-			function(){}
-		];
-
-		for ( var i = 0; i < values.length; i++ ) {
-			err = validate({
-				'decodeStrings': values[i]
-			});
-			assert.instanceOf( err, TypeError );
-		}
-	});
-
-	it( 'should return an error if encoding option is not a string or null', function test() {
-		var values, err;
-
-		values = [
-			5,
-			{},
 			true,
-			NaN,
 			undefined,
+			null,
+			NaN,
 			[],
-			function(){}
+			{}
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			err = validate({
-				'encoding': values[i]
+			err = validate( {}, {
+				'accessor': values[ i ]
 			});
-			assert.instanceOf( err, TypeError );
+			assert.isTrue( err instanceof TypeError );
 		}
 	});
 
-	it( 'should return an error if high watermark option is not a number greater than or equal to 0', function test() {
+	it( 'should return an error if provided a dim option which is not a positive integer', function test() {
 		var values, err;
 
 		values = [
-			-5,
 			'5',
-			{},
+			Math.PI,
+			-1,
+			0,
 			true,
-			NaN,
-			null,
 			undefined,
+			null,
+			NaN,
 			[],
+			{},
 			function(){}
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			err = validate({
-				'highWaterMark': values[i]
+			err = validate( {}, {
+				'dim': values[ i ]
 			});
-			assert.instanceOf( err, TypeError );
+			assert.isTrue( err instanceof TypeError );
 		}
 	});
 
-	it( 'should return an error if objectMode option is not a boolean', function test() {
+	it( 'should return an error if provided a dtype option which is not a string primitive', function test() {
 		var values, err;
 
 		values = [
 			5,
-			'5',
-			null,
-			{},
-			NaN,
+			true,
 			undefined,
+			null,
+			NaN,
 			[],
+			{},
 			function(){}
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			err = validate({
-				'objectMode': values[i]
+			err = validate( {}, {
+				'dtype': values[ i ]
 			});
-			assert.instanceOf( err, TypeError );
+			assert.isTrue( err instanceof TypeError );
 		}
 	});
 
-	it( 'should return an error if delimiter option is not a string', function test() {
-		var values, err;
+	it( 'should return null if all options are valid', function test() {
+		var err;
 
-		values = [
-			5,
-			{},
-			true,
-			NaN,
-			null,
-			undefined,
-			[],
-			function(){}
-		];
+		err = validate( {}, {
+			'accessor': function getValue(){},
+			'dim': 2,
+			'dtype': 'int32'
+		});
 
-		for ( var i = 0; i < values.length; i++ ) {
-			err = validate({
-				'delimiter': values[i]
-			});
-			assert.instanceOf( err, TypeError );
-		}
+		assert.isNull( err );
 	});
 
 });
