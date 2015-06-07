@@ -62,7 +62,7 @@ describe( 'matrix mean', function tests() {
 		mu = mean( out, mat );
 		expected = '22;17;12;7;2';
 
-		assert.strictEqual( mu.toString(), expected );
+		assert.strictEqual( mu.toString(), expected, 'flipud' );
 	});
 
 	it( 'should compute the arithmetic mean along matrix rows', function test() {
@@ -82,7 +82,7 @@ describe( 'matrix mean', function tests() {
 		mu = mean( out, mat );
 		expected = '14,13,12,11,10';
 
-		assert.strictEqual( mu.toString(), expected );
+		assert.strictEqual( mu.toString(), expected, 'fliplr' );
 	});
 
 	it( 'should return null if provided a matrix having one or more zero dimensions', function test() {
