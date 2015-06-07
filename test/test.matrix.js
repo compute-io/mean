@@ -1,4 +1,4 @@
-/* global describe, it, require */
+/* global describe, it, require, beforeEach */
 'use strict';
 
 // MODULES //
@@ -31,8 +31,10 @@ describe( 'matrix mean', function tests() {
 	for ( i = 0; i < data.length; i++ ) {
 		data[ i ] = i;
 	}
-	mat = matrix( data, [5,5], 'int8' );
 
+	beforeEach( function before() {
+		mat = matrix( data, [5,5], 'int8' );
+	});
 
 	it( 'should export a function', function test() {
 		expect( mean ).to.be.a( 'function' );
@@ -52,6 +54,15 @@ describe( 'matrix mean', function tests() {
 		expected = '2;7;12;17;22';
 
 		assert.strictEqual( mu.toString(), expected );
+
+		// Flip a matrix up-down:
+		mat.strides[ 0 ] *= -1;
+		mat.offset = mat.length + mat.strides[ 0 ];
+
+		mu = mean( out, mat );
+		expected = '22;17;12;7;2';
+
+		assert.strictEqual( mu.toString(), expected );
 	});
 
 	it( 'should compute the arithmetic mean along matrix rows', function test() {
@@ -61,6 +72,15 @@ describe( 'matrix mean', function tests() {
 
 		mu = mean( out, mat, 1 );
 		expected = '10,11,12,13,14';
+
+		assert.strictEqual( mu.toString(), expected );
+
+		// Flip a matrix left-right:
+		mat.strides[ 1 ] *= -1;
+		mat.offset = mat.strides[ 0 ] - 1;
+
+		mu = mean( out, mat );
+		expected = '14,13,12,11,10';
 
 		assert.strictEqual( mu.toString(), expected );
 	});
