@@ -79,7 +79,7 @@ describe( 'matrix mean', function tests() {
 		mat.strides[ 1 ] *= -1;
 		mat.offset = mat.strides[ 0 ] - 1;
 
-		mu = mean( out, mat );
+		mu = mean( out, mat, 1 );
 		expected = '14,13,12,11,10';
 
 		assert.strictEqual( mu.toString(), expected, 'fliplr' );

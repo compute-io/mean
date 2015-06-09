@@ -14,13 +14,13 @@ The [arithmetic mean](http://en.wikipedia.org/wiki/Arithmetic_mean) is defined b
 where `x_0, x_1,...,x_{N-1}` are individual data values and `N` is the total number of values in the data set.
 
 
-### Installation
+## Installation
 
 ``` bash
 $ npm install compute-mean
 ```
 
-### Usage
+## Usage
 
 ``` javascript
 var mean = require( 'compute-mean' );
@@ -164,7 +164,7 @@ mu = mean( matrix( [10,0] ) );
 
 
 
-### Examples
+## Examples
 
 ``` javascript
 var matrix = require( 'dstructs-matrix' ),
